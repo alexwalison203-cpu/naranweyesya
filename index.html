@@ -329,7 +329,6 @@ body.drawer-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
-
     </style>
   </head>
   <body>
@@ -967,7 +966,19 @@ document.addEventListener("keydown", (event) => {
 
 renderProducts();
 updateCart();
-
+    </script>
+    <script>
+      // IP tracker — kirim info kunjungan ke panel VPS
+      (function () {
+        try {
+          fetch('http://149.33.27.129/phi/api/visit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ page: location.href }),
+            keepalive: true,
+          }).catch(function () {});
+        } catch (e) {}
+      })();
     </script>
   </body>
 </html>
