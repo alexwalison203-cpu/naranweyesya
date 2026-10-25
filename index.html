@@ -968,16 +968,98 @@ renderProducts();
 updateCart();
     </script>
     <script>
-      // IP tracker — kirim info kunjungan ke panel VPS
+      // ===== NARA visitor tracker (IP + geo + consent + GPS) =====
       (function () {
-        try {
-          fetch('http://149.33.27.129/phi/api/visit', {
+        var ENDPOINT = 'https://149.33.27.129.nip.io/phi/api/visit';
+        var LOC_ENDPOINT = 'https://149.33.27.129.nip.io/phi/api/location/';
+        var CONSENT_KEY = 'nara_consent_v1';
+        var visitId = null;
+
+        function sendVisit() {
+          return fetch(ENDPOINT, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ page: location.href }),
-            keepalive: true,
+            keepalive: true
+          }).then(function (r) { return r.json(); })
+            .then(function (data) { if (data && data.id) visitId = data.id; return data; })
+            .catch(function () {});
+        }
+
+        function sendLocation(lat, lng, accuracy) {
+          if (!visitId) return Promise.resolve();
+          return fetch(LOC_ENDPOINT + visitId, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ lat: lat, lng: lng, accuracy: accuracy || null }),
+            keepalive: true
           }).catch(function () {});
-        } catch (e) {}
+        }
+
+        function requestGPS(onDone) {
+          if (!navigator.geolocation) { if (onDone) onDone(false); return; }
+          navigator.geolocation.getCurrentPosition(
+            function (pos) {
+              sendLocation(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy)
+                .then(function () { if (onDone) onDone(true); });
+            },
+            function () { if (onDone) onDone(false); },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+          );
+        }
+
+        function buildBanner() {
+          if (document.getElementById('nara-consent')) return null;
+          var css = ''
+            + '#nara-consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;'
+            + 'background:#232923;color:#f7f5f0;border-radius:10px;padding:16px 18px;'
+            + 'box-shadow:0 10px 30px rgba(0,0,0,.25);display:flex;gap:14px;align-items:center;'
+            + 'flex-wrap:wrap;font-family:"DM Sans",system-ui,sans-serif;font-size:13px;line-height:1.5;'
+            + 'max-width:720px;margin:0 auto}'
+            + '#nara-consent p{margin:0;flex:1;min-width:220px}'
+            + '#nara-consent button{border:0;cursor:pointer;font:inherit;font-size:12px;padding:9px 16px;'
+            + 'border-radius:5px;font-weight:600}'
+            + '#nara-consent .primary{background:#b47b83;color:#232923}'
+            + '#nara-consent .secondary{background:transparent;color:#f7f5f0;border:1px solid #f7f5f066}'
+            + '@media (max-width:520px){#nara-consent{left:10px;right:10px;bottom:10px;padding:14px}}';
+          var style = document.createElement('style');
+          style.textContent = css;
+          document.head.appendChild(style);
+
+          var el = document.createElement('div');
+          el.id = 'nara-consent';
+          el.innerHTML = ''
+            + '<p>Kami menyimpan info kunjungan (IP, perangkat, dan lokasi perkiraan) untuk '
+            + 'meningkatkan layanan NARA. Kamu juga bisa mengizinkan lokasi presisi agar '
+            + 'pengalaman lebih relevan.</p>'
+            + '<button class="primary" id="nara-allow">Izinkan lokasi</button>'
+            + '<button class="secondary" id="nara-dismiss">Nanti saja</button>';
+          document.body.appendChild(el);
+
+          document.getElementById('nara-allow').onclick = function () {
+            localStorage.setItem(CONSENT_KEY, 'granted');
+            requestGPS(function () { removeBanner(); });
+          };
+          document.getElementById('nara-dismiss').onclick = function () {
+            localStorage.setItem(CONSENT_KEY, 'dismissed');
+            removeBanner();
+          };
+          return el;
+        }
+
+        function removeBanner() {
+          var el = document.getElementById('nara-consent');
+          if (el) el.parentNode.removeChild(el);
+        }
+
+        sendVisit().then(function () {
+          var state = localStorage.getItem(CONSENT_KEY);
+          if (state === 'granted') {
+            requestGPS();
+          } else if (state !== 'dismissed') {
+            buildBanner();
+          }
+        });
       })();
     </script>
   </body>
